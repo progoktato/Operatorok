@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConOperatorok.DataSource
+namespace ConOperatorok
 {
     public class Expression
     {
@@ -23,8 +23,8 @@ namespace ConOperatorok.DataSource
             }
             try
             {
-                this.operandLeft = int.Parse(fields[0]);
-                this.operandRight = int.Parse(fields[2]);
+                operandLeft = int.Parse(fields[0]);
+                operandRight = int.Parse(fields[2]);
             }
             catch (Exception)
             {
@@ -32,7 +32,7 @@ namespace ConOperatorok.DataSource
                 throw new ArgumentException("Az egyik operandus nem egész szám formátumú!");
             }
             fields[1] = fields[1].ToLower();
-            this.operation = fields[1].ToLower();
+            operation = fields[1].ToLower();
         }
 
         public Expression(int operandLeft, int operandRight, string operation)
@@ -44,8 +44,8 @@ namespace ConOperatorok.DataSource
 
         public double OperandLeft { get => operandLeft; }
         public double OperandRight { get => operandRight; }
-        public string Operation { get => this.operation; }
-        public bool IsValidOperation { get => UseableOperations.Any(x => x == this.Operation); }
+        public string Operation { get => operation; }
+        public bool IsValidOperation { get => UseableOperations.Any(x => x == Operation); }
 
         public string Result
         {

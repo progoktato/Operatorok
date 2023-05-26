@@ -1,13 +1,11 @@
-﻿using ConOperatorok.DataSource;
-
-namespace ConOperatorok
+﻿namespace ConOperatorok
 {
     internal class Program
     {
-        static List<Expression> expressions = new List<Expression>();
         static void Main(string[] args)
         {
-            expressions = LoadExpressionsFromCSV("DataSource\\kifejezesek.txt");
+            List<Expression> expressions = File.ReadAllLines("DataSource\\kifejezesek.txt")
+                .ToList().Select(csvLine => new Expression(csvLine)).ToList();
 
             Console.WriteLine($"2. feladat: Kifejezések száma: {expressions.Count}");
 
@@ -35,12 +33,7 @@ namespace ConOperatorok
             } while (stringFromConsole.ToLower() != "vége");
 
             Console.WriteLine("8. feladat: eredmenyek.txt");
-            File.WriteAllLines("eredmenyek.txt",expressions.Select(ob=>ob.Result));
-        }
-
-        private static List<Expression> LoadExpressionsFromCSV(string fileName)
-        {
-            return File.ReadAllLines(fileName).ToList().Select(csvLine => new Expression(csvLine)).ToList();
+            File.WriteAllLines("eredmenyek.txt", expressions.Select(ob => ob.Result));
         }
     }
 }
